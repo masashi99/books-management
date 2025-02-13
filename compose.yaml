@@ -2,7 +2,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: backend/Dockerfile
       args:
         DATABASE_URL: ${DATABASE_URL}
     ports:
