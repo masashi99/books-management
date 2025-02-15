@@ -47,4 +47,4 @@ jobs:
 
       #8
       - name: Rustfmt
-        run: cargo make fmt -- -check
+        run: cargo make fmt -- --check
