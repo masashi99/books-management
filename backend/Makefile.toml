@@ -98,7 +98,7 @@ extend = "set-env-local"
 install_crate = { crate_name = "cargo-nextest", binary = "cargo", test_arg = ["nextest", "--help"]}
 command = "cargo"
 args = [
-  "nextest", "run", "--workspace", "--status-level", "all", "--test-thread=1",
+  "nextest", "run", "--workspace", "--status-level", "all", "--test-threads=1",
 ]
 
 [tasks.clippy-ci]
@@ -123,7 +123,7 @@ done
 extend = "set-env-local"
 install_crate = { crate_name = "sqlx-cli", binary = "sqlx", test_arg = "--help", version = "0.7.3" }
 command = "sqlx"
-args = ["${@}, "--source", "adapter/migrations"]
+args = ["${@}", "--source", "adapter/migrations"]
 
 [tasks.psql]
 extend = "set-env-local"

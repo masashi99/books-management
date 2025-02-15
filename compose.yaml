@@ -20,9 +20,9 @@ services:
       AUTH_TOKEN_URL: ${AUTH_TOKEN_URL}
       JAEGER_HOST: ${JAEGER_HOST}
       JAEGER_PORT: ${JAEGER_PORT}
-      depends_on:
-        - redis
-        - postgres
+    depends_on:
+      - redis
+      - postgres
 
   redis:
     image: redis:alpine
@@ -31,7 +31,7 @@ services:
 
   postgres:
     image: postgres:17.2
-    command: postgres -c log_destination=stderr -c log_statement=all -c log_connection=on -c log_disconnections=on
+    command: postgres -c log_destination=stderr -c log_statement=all -c log_connections=on -c log_disconnections=on
     ports:
       - ${DATABASE_PORT_OUTER}:${DATABASE_PORT_INNER}
     volumes:
