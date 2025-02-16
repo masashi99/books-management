@@ -8,9 +8,15 @@ name = "app"
 path = "src/bin/app.rs"
 
 [workspace]
-members = ["api", "kernel", "registry", "shared"]
+members = ["adapter", "api", "kernel", "registry", "shared"]
 
 [workspace.dependencies]
+adapter = {path = "./adapter"}
+api = {path = "./api"}
+kernel = {path = "./kernel"}
+registry = {path = "./registry"}
+shared = {path = "./shared"}
+
 anyhow = "1.0.75"
 axum = {version = "0.7.5", features = ["macros"]}
 rstest = "0.18.2"
