@@ -5,3 +5,4 @@ version = "0.1.0"
 
 [dependencies]
 async-trait.workspace = true
+uuid.workspace = true
