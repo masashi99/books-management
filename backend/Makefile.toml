@@ -35,6 +35,7 @@ REDIS_PORT = "${REDIS_PORT_OUTER}"
 run_task = [
   {name = [
     "compose-up-db",
+    "migrate",
     "compose-up-redis",
   ]},
 ]
