@@ -2,7 +2,8 @@ use std::net::{Ipv4Addr, SocketAddr};
 
 use adapter::database::connect_database_with;
 use anyhow::Result;
-use api::route::health::build_health_check_routes;
+use api::route::{book::build_book_route, health::build_health_check_routes};
+use axum::Router;
 use registry::AppRegistry;
 use shared::config::AppConfig;
 use tokio::net::TcpListener;
@@ -17,7 +18,10 @@ async fn bootstrap() -> Result<()> {
     let pool = connect_database_with(&app_config.database);
 
     let registry = AppRegistry::new(pool);
-    let app = build_health_check_routes().with_state(registry);
+    let app = Router::new()
+        .merge(build_health_check_routes())
+        .merge(build_book_route())
+        .with_state(registry);
 
     let addr = SocketAddr::new(Ipv4Addr::LOCALHOST.into(), 8080);
     let listener = TcpListener::bind(addr).await?;
