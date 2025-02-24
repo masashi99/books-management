@@ -1,9 +1,9 @@
 use std::net::{Ipv4Addr, SocketAddr};
 
 use adapter::database::connect_database_with;
-use anyhow::Context;
+use anyhow::{Context, Result};
 use api::route::{book::build_book_route, health::build_health_check_routes};
-use axum::Router;
+use axum::{http::Method, Router};
 use registry::AppRegistry;
 use shared::{
     config::AppConfig,
@@ -11,15 +11,24 @@ use shared::{
 };
 use tokio::net::TcpListener;
 use tower_http::{
-    cors,
+    cors::{self, CorsLayer},
     trace::{DefaultMakeSpan, DefaultOnRequest, DefaultOnResponse, TraceLayer},
     LatencyUnit,
 };
 use tracing::Level;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt, EnvFilter};
 
+// cors 関数を追加
+fn cors() -> CorsLayer {
+    CorsLayer::new()
+        .allow_headers(cors::Any)
+        .allow_methods([Method::GET, Method::POST, Method::PUT, Method::DELETE])
+        .allow_origin(cors::Any)
+}
+
 #[tokio::main]
 async fn main() -> Result<()> {
+    init_logger()?;
     bootstrap().await
 }
 
