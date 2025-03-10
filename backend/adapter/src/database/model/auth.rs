@@ -1,4 +1,4 @@
-use shared::error::{AppError, AppResult};
+use shared::error::AppError;
 use std::str::FromStr;
 
 use kernel::model::{
