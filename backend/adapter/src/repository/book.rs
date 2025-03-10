@@ -84,8 +84,14 @@ impl BookRepository for BookRepositoryImpl {
 mod tests {
     use super::*;
 
+    #[test]
+    fn dummy() {
+        assert_ne!(0, 1);
+    }
+
     #[sqlx::test]
     #[ignore]
+
     async fn test_register_book(pool: sqlx::PgPool) -> anyhow::Result<()> {
         let repo = BookRepositoryImpl::new(ConnectionPool::new(pool));
         let book = CreateBook {
