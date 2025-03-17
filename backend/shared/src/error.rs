@@ -26,7 +26,7 @@ pub enum AppError {
     #[error("認可情報が誤っています")]
     UnauthorizedError,
     #[error("許可されていない捜査です")]
-    ForbiddenError,
+    ForbiddenOperation,
     #[error("{0}")]
     ConversationEntityError(String),
 }
@@ -39,7 +39,7 @@ impl IntoResponse for AppError {
             AppError::ValidationError(_) | AppError::ConvertToUuidError(_) => {
                 StatusCode::BAD_REQUEST
             }
-            AppError::UnauthenticatedError | AppError::ForbiddenError => StatusCode::FORBIDDEN,
+            AppError::UnauthenticatedError | AppError::ForbiddenOperation => StatusCode::FORBIDDEN,
             AppError::UnauthorizedError => StatusCode::UNAUTHORIZED,
             e @ (AppError::TransactionError(_)
             | AppError::SpecificOperationError(_)
